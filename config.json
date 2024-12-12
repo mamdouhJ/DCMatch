@@ -1,0 +1,12 @@
+{
+    "meta_features_path": "/home/wiss/aljoud/DCMatch/dataset_features/",
+    "clip_model_name": "ViT-L-14-quickgelu",
+    "pretrained": "dfn2b",
+    "architecture_results_path": "/home/wiss/aljoud/DCMatch/architecture_history_data/",
+    "baseline_scores_path": "/home/wiss/aljoud/DCMatch/baselines/",
+    "models_path": "/home/wiss/aljoud/DCMatch/models/",
+    "project_name": "NAS",
+    "figures_path": "/home/wiss/aljoud/DCMatch/figures/"
+
+
+}
