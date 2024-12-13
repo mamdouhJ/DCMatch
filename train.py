@@ -34,7 +34,7 @@ class BaseMetaFeaturesEncoder(nn.Module):
         return self.encoder(x)
 
 class StatisticalMetaFeaturesEncoder(nn.Module):
-    def __init__(self, input_dim=32, output_dim=32):
+    def __init__(self, input_dim=37, output_dim=32):
         super(StatisticalMetaFeaturesEncoder, self).__init__()
         self.encoder = nn.Sequential(
             nn.Linear(input_dim, 64),
