@@ -152,5 +152,5 @@ if __name__ == "__main__":
         config_path=./",
         alg=sys.argv[2],
         n_samples=int(sys.argv[3]),
-        training_set=100000
+        training_set=10000
     )
