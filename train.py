@@ -149,7 +149,7 @@ def train(config_path, stat_mode='classic', alg='dec', n_samples=1000, training_
 
 if __name__ == "__main__":
     train(
-        config_path="/home/wiss/aljoud/AutomatedDEC/",
+        config_path=./",
         alg=sys.argv[2],
         n_samples=int(sys.argv[3]),
         training_set=100000
