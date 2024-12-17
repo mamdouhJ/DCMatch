@@ -67,7 +67,7 @@ class ArchitectureEncoder(nn.Module):
 def save_model(model, path):
     torch.save(model.state_dict(), path)
 
-def train(config_path, stat_mode='classic', alg='dec', n_samples=1000, training_set=100000):
+def train(config_path, stat_mode='classic', n_samples=1000, training_set=100000):
     with open(config_path + "config.json", "r") as f:
         config = json.load(f)
 
@@ -84,10 +84,10 @@ def train(config_path, stat_mode='classic', alg='dec', n_samples=1000, training_
     print(f"Training for {dataset_of_interest}")
 
     models_path = config["models_path"]
-    d_dict = DatasetsDicts(config_path + "config.json", dataset_of_interest, alg=alg)
+    d_dict = DatasetsDicts(config_path + "config.json", dataset_of_interest)
     dataset_dict = d_dict.build_dataset_dict()
 
-    t = TrainingSamplesCreator(datasets_loaders, dataset_dict, config_path + "config.json", alg=alg)
+    t = TrainingSamplesCreator(datasets_loaders, dataset_dict, config_path + "config.json")
     combs = t.create_training_samples(training_set, num_samples=n_samples, stat_mode=stat_mode)
 
     stat_features = np.array([c[1][5:] for c in combs])
@@ -95,12 +95,12 @@ def train(config_path, stat_mode='classic', alg='dec', n_samples=1000, training_
     stat_features = scaler.fit_transform(stat_features)
     combs = [(c[0], torch.Tensor(stat_features[i]), c[2], c[3]) for i, c in enumerate(combs)]
 
-    joblib.dump(scaler, f"{models_path}/{dataset_of_interest}_scaler_{n_samples}_{stat_mode}_{alg}.pkl")
+    joblib.dump(scaler, f"{models_path}/{dataset_of_interest}_scaler_{n_samples}_{stat_mode}.pkl")
 
     nas_dataset = NASDataset(combs)
     dataloader = DataLoader(nas_dataset, batch_size=256, shuffle=True)
 
-    wandb.init(project=config['project_name'], name=f"{dataset_of_interest}_encoder_{stat_mode}_{alg}")
+    wandb.init(project=config['project_name'], name=f"{dataset_of_interest}_encoder_{stat_mode}")
 
     base_meta_features_encoder = BaseMetaFeaturesEncoder().to('cuda')
     stat_features_encoder = StatisticalMetaFeaturesEncoder().to('cuda')
